@@ -22,8 +22,8 @@ public class DashboardPage {
         heading.shouldBe(visible);
     }
 
-    public int getCardBalance(DataHelper.CardId cardId) {
-        String id = cardId.getId();
+    public int getCardBalance(DataHelper.CardInfo cardInfo) {
+        String id = cardInfo.getCardId();
         String text2 = $(cardIdStart + id + cardIdFinish).text();
         val text = cards.find(text(text2)).text();
         return extractBalance(text);
@@ -36,8 +36,8 @@ public class DashboardPage {
         return Integer.parseInt(value);
     }
 
-    public TransferPage addDepositTo(DataHelper.CardId cardId) {
-        String id = cardId.getId();
+    public TransferPage addDepositTo(DataHelper.CardInfo cardInfo) {
+        String id = cardInfo.getCardId();
         $(cardIdStart + id + cardIdFinish + " button").click();
         return new TransferPage();
     }

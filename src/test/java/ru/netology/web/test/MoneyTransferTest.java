@@ -22,15 +22,14 @@ class MoneyTransferTest {
         val dashboardPageBeforeTransfer = new LoginPage()
                 .validLogin(getAuthInfo())
                 .validVerify(getVerificationCodeFor(getAuthInfo()));
-        int actualAmountFirstCard = dashboardPageBeforeTransfer.getCardBalance(getFirstCardId());
-        int actualAmountSecond = dashboardPageBeforeTransfer.getCardBalance(getSecondCardId());
+        int actualAmountFirstCard = dashboardPageBeforeTransfer.getCardBalance(getFirstCardInfo());
+        int actualAmountSecond = dashboardPageBeforeTransfer.getCardBalance(getSecondCardInfo());
         val dashboardPageAfterTransfer = dashboardPageBeforeTransfer
-                .addDepositTo(getFirstCardId())
-                .transferMoney(sum, getSecondCardInfo());
-        val balanceFirst = dashboardPageAfterTransfer.getCardBalance(getFirstCardId());
-        val balanceSecond = dashboardPageAfterTransfer.getCardBalance(getSecondCardId());
-        assertEquals(actualAmountFirstCard, balanceFirst);
-        assertEquals(actualAmountSecond, balanceSecond);
-
+                .addDepositTo(getSecondCardInfo())
+                .transferMoney(sum, getFirstCardInfo());
+        val balanceFirst = dashboardPageAfterTransfer.getCardBalance(getFirstCardInfo());
+        val balanceSecond = dashboardPageAfterTransfer.getCardBalance(getSecondCardInfo());
+        assertEquals(9900, balanceFirst);
+        assertEquals(10100, balanceSecond);
     }
 }
