@@ -29,7 +29,7 @@ class MoneyTransferTest {
                 .transferMoney(sum, getFirstCardInfo());
         val balanceFirst = dashboardPageAfterTransfer.getCardBalance(getFirstCardInfo());
         val balanceSecond = dashboardPageAfterTransfer.getCardBalance(getSecondCardInfo());
-        assertEquals(9900, balanceFirst);
-        assertEquals(10100, balanceSecond);
+        assertEquals(actualAmountFirstCard - sum, balanceFirst);
+        assertEquals(actualAmountSecond + sum, balanceSecond);
     }
 }
