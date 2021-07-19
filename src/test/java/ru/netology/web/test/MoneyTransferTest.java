@@ -55,9 +55,7 @@ class MoneyTransferTest {
     @Test
     void shouldLoginWithInvalidLogin() {
         val loginPage = new LoginPage();
-        loginPage.invalidLogin(getOtherAuthInfo(getAuthInfo()));
-        $("[data-test-id=error-notification] .notification__content").shouldBe(Condition.visible)
-                .shouldHave(Condition.text("Ошибка! Неверно указан логин или пароль"));
+        loginPage.invalidLogin(getInvalidAuthInfo());
     }
 
     @Test
@@ -68,12 +66,8 @@ class MoneyTransferTest {
                 .validVerify(getVerificationCodeFor(getAuthInfo()));
         int balanceBeforeTransferFirstCard = dashboardPageBeforeTransfer.getCardBalance(getFirstCardInfo());
         int balanceBeforeTransferSecondCard = dashboardPageBeforeTransfer.getCardBalance(getSecondCardInfo());
-        val dashboardPageAfterTransfer = dashboardPageBeforeTransfer
+         val dashboardPageAfterTransfer = dashboardPageBeforeTransfer
                 .addDepositTo(getFirstCardInfo())
-                .transferMoney(sum, getSecondCardInfo());
-        val balanceAfterTransferFirstCard = dashboardPageAfterTransfer.getCardBalance(getFirstCardInfo());
-        val balanceAfterTransferSecondCard = dashboardPageAfterTransfer.getCardBalance(getSecondCardInfo());
-        assertEquals(balanceBeforeTransferFirstCard + sum, balanceAfterTransferFirstCard);
-        assertEquals(balanceBeforeTransferSecondCard - sum, balanceAfterTransferSecondCard);
+                .transferMaxMoney(sum, getSecondCardInfo());
     }
 }

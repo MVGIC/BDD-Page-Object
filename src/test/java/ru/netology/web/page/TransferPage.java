@@ -1,5 +1,6 @@
 package ru.netology.web.page;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import ru.netology.web.data.DataHelper;
 
@@ -13,6 +14,8 @@ public class TransferPage {
     private SelenideElement sumField = $("[data-test-id=amount] input");
     private SelenideElement fromField = $("[data-test-id=from] input");
     private SelenideElement endDepositButton = $("[data-test-id=action-transfer]");
+    private SelenideElement errorSumBallance = $("[data-test-id=error-balance] .notification__content").shouldBe(visible)
+            .shouldHave(Condition.text("Ошибка! Сумма перевода не может превышать актуальный баланс списываемой карты"));
 
     public TransferPage() {
         heading.shouldBe(visible);
@@ -23,5 +26,12 @@ public class TransferPage {
         fromField.setValue(number.getNumber());
         endDepositButton.click();
         return new DashboardPage();
+    }
+
+    public void transferMaxMoney (int amount, DataHelper.CardInfo number){
+        sumField.setValue(Integer.toString(amount));
+        fromField.setValue(number.getNumber());
+        endDepositButton.click();
+        errorSumBallance.shouldBe(visible);
     }
 }
