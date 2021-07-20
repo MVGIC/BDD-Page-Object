@@ -14,8 +14,7 @@ public class TransferPage {
     private SelenideElement sumField = $("[data-test-id=amount] input");
     private SelenideElement fromField = $("[data-test-id=from] input");
     private SelenideElement endDepositButton = $("[data-test-id=action-transfer]");
-    private SelenideElement errorSumBallance = $("[data-test-id=error-balance] .notification__content").shouldBe(visible)
-            .shouldHave(Condition.text("Ошибка! Сумма перевода не может превышать актуальный баланс списываемой карты"));
+    private SelenideElement errorSumBallance = $("[data-test-id=error-balance] .notification__content");
 
     public TransferPage() {
         heading.shouldBe(visible);
@@ -32,6 +31,7 @@ public class TransferPage {
         sumField.setValue(Integer.toString(amount));
         fromField.setValue(number.getNumber());
         endDepositButton.click();
-        errorSumBallance.shouldBe(visible);
+        errorSumBallance.shouldBe(visible)
+                .shouldHave(Condition.text("Ошибка! Сумма перевода не может превышать актуальный баланс списываемой карты"));
     }
 }

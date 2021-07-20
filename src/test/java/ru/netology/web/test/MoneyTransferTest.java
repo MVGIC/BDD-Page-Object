@@ -1,12 +1,10 @@
 package ru.netology.web.test;
 
-import com.codeborne.selenide.Condition;
 import lombok.val;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.netology.web.page.LoginPage;
 
-import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static ru.netology.web.data.DataHelper.*;
@@ -66,8 +64,8 @@ class MoneyTransferTest {
                 .validVerify(getVerificationCodeFor(getAuthInfo()));
         int balanceBeforeTransferFirstCard = dashboardPageBeforeTransfer.getCardBalance(getFirstCardInfo());
         int balanceBeforeTransferSecondCard = dashboardPageBeforeTransfer.getCardBalance(getSecondCardInfo());
-         val dashboardPageAfterTransfer = dashboardPageBeforeTransfer
-                .addDepositTo(getFirstCardInfo())
-                .transferMaxMoney(sum, getSecondCardInfo());
+        val dashboardPageAfterTransfer = dashboardPageBeforeTransfer
+                .addDepositTo(getFirstCardInfo());
+        dashboardPageAfterTransfer.transferMaxMoney(sum, getSecondCardInfo());
     }
 }

@@ -20,8 +20,8 @@ public class DataHelper {
         return new AuthInfo("petya", "123qwerty");
     }
 
-    public static AuthInfo getInvalidAuthInfo(){
-        return new AuthInfo("niko","123asd");
+    public static AuthInfo getInvalidAuthInfo() {
+        return new AuthInfo("niko", "123asd");
     }
 
     @Value
